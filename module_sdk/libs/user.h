@@ -42,7 +42,9 @@ namespace Account
 	{
 		struct Student
 		{
-			int id;
+			Student() = default;
+			Student(std::uint64_t id, int grade, const std::string& notes);
+			std::uint64_t id;
 			int grade;
 			std::string notes;
 		};

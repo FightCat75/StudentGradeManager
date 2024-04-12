@@ -109,7 +109,7 @@ auto DataBase::SQLite::Exec(const std::string& cmd) const ->std::map<std::string
     if (!this->counter_mutex) throw DataBaseException("Database not open");
     std::map<std::string, std::vector<std::string>> ret;
     char* err_msg = nullptr;
-    if (sqlite3_exec(this->m_db, cmd.c_str(),
+    auto status = sqlite3_exec(this->m_db, cmd.c_str(),
         [](void* ret, int argc, char** argv, char** col_name)->int
         {
             std::map<std::string, std::vector<std::string>>* m = (std::map<std::string, std::vector<std::string>>*)ret;
@@ -121,7 +121,8 @@ auto DataBase::SQLite::Exec(const std::string& cmd) const ->std::map<std::string
         },
         &ret,
         &err_msg
-    ) != SQLITE_OK)
+    );
+    if (status != SQLITE_OK && status != SQLITE_EMPTY)
     {
         std::string errstring = std::string("SQLite command execute error:") + err_msg;
         sqlite3_free(err_msg);

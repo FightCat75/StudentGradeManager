@@ -7,13 +7,13 @@
 #include <filesystem>
 #include <mutex>
 
-static std::string LogDir;
-static std::mutex LogMutex;
-static FILE* Fp=nullptr;
-static std::string LogFileName;
-static bool IsInit = false;
-static int ShowLogLevel=0;
-static int SaveLogLevel;
+ std::string LogDir;
+ std::mutex LogMutex;
+ FILE* Fp=nullptr;
+ std::string LogFileName;
+ bool IsInit = false;
+ int ShowLogLevel=0;
+ int SaveLogLevel;
 using namespace std;
 
 
